@@ -40,3 +40,11 @@ LUALIB_API void lrocksdb_setmeta(lua_State *L, const char *name) {
   luaL_getmetatable(L, name);
   lua_setmetatable(L, -2);
 }
+
+
+void lrocksdb_assert(lua_State *L, int cond, const char *msg) {
+  if(!cond) {
+    luaL_error(L, msg);
+  }
+}
+
