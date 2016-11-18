@@ -10,5 +10,8 @@ local options = rocksdb.options({
 })
 assert(options.class == "options")
 
-
 local db = rocksdb.open(options, "/tmp/rocksdb.test")
+
+local readoptions = rocksdb.readoptions()
+local writeoptions = rocksdb.writeoptions()
+print(db.options)

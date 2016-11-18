@@ -1,11 +1,12 @@
 #include "lrocksdb.h"
 
-LUALIB_API int lrockdb_reg(lua_State *L) {
+LUALIB_API int lrocksdb_reg(lua_State *L) {
+  lrocksdb_createmeta(L, "db", options_reg);
   return 1;
 }
 
-LUALIB_API int lrockdb_open(lua_State *L) {
-  lrocksdb_options_t *o = lrockdb_get_options(L, 1);
+LUALIB_API int lrocksdb_open(lua_State *L) {
+  lrocksdb_options_t *o = lrocksdb_get_options(L, 1);
   const char *path = luaL_checkstring(L, 2);
   char *err = NULL;
   rocksdb_t *db = rocksdb_open(o->options, path, &err);
@@ -23,14 +24,18 @@ LUALIB_API int lrockdb_open(lua_State *L) {
 }
 
 static const struct luaL_Reg  lrocksdb_regs[] = {
-  { "db", lrockdb_reg },
+  { "db", lrocksdb_reg },
   { "options",  lrocksdb_options_reg },
+  { "writeoptions",  lrocksdb_writeoptions_reg },
+  { "readoptions",  lrocksdb_readoptions_reg },
   { NULL, NULL }
 };
 
 static const struct luaL_Reg mod_reg[] = {
-  { "open", lrockdb_open },
-  { "options", lrockdb_options_create },
+  { "open", lrocksdb_open },
+  { "options", lrocksdb_options_create },
+  { "writeoptions", lrocksdb_writeoptions_create },
+  { "readoptions", lrocksdb_readoptions_create },
   { NULL, NULL }
 };
 
