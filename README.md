@@ -14,7 +14,7 @@ Usage
   local options = rocksdb.options({
     create_if_missing = true
   })
-  local db = rocksdb.open(options, "/tmp/test.rb")
+  local db = rocksdb.open(options, "/tmp/test.rocksdb")
   local writeoptions = rocksdb.writeoptions()
   local readoptions = rocksdb.readoptions()
   db:put(writeoptions, "key", "value")
