@@ -20,6 +20,7 @@ LUALIB_API int lrocksdb_open(lua_State *L) {
 
   if(err) {
     luaL_error(L, err);
+    free(err);
     return 0;
   }
 
@@ -44,6 +45,7 @@ LUALIB_API int lrocksdb_put(lua_State *L) {
   rocksdb_put(d->db, wo->writeoptions, key, key_len, value, value_len, &err);
   if(err) {
     luaL_error(L, err);
+    free(err);
   }
   return 1;
 }
@@ -61,6 +63,7 @@ LUALIB_API int lrocksdb_get(lua_State *L) {
   }
   else {
     lua_pushlstring(L, value, value_len);
+    free(value);
   }
   return 1;
 }

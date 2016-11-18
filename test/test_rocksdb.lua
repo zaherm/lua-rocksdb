@@ -1,7 +1,6 @@
 local rocksdb = require("rocksdb")
 local format = string.format
 
-
 for k,v in pairs(rocksdb) do
   print(k..": "..tostring(v))
 end
@@ -43,6 +42,8 @@ db:close()
 print("closed")
 local ok, res = pcall(db.get, db, readoptions, "testkey")
 assert(ok == false)
+readoptions:destroy()
+writeoptions:destroy()
+options:destroy()
 collectgarbage()
-
 
