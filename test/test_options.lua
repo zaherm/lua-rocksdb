@@ -4,9 +4,11 @@ for k,v in pairs(rocksdb) do
   print(k..": "..tostring(v))
 end
 
-local options = rocksdb.options()
+local options = rocksdb.options({
+  increase_parallelism = 1,
+  create_if_missing = true
+})
 assert(options.class == "options")
-options:increase_parallelism(1)
-options:set_create_if_missing(true)
+
 
 local db = rocksdb.open(options, "/tmp/rocksdb.test")

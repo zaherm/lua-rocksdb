@@ -10,17 +10,30 @@
 #include "lrocksdb_types.h"
 #include "lrocksdb_helpers.h"
 
+lrocksdb_options_t *lrockdb_get_options(lua_State *L, int index);
 LUALIB_API int lrocksdb_options_reg(lua_State *L);
-lrocksdb_options_t *lrockdb_options_get(lua_State *L, int index);
 LUALIB_API int lrockdb_options_create(lua_State *L);
-LUALIB_API int lrocksdb_options_increase_parallelism(lua_State *L);
-LUALIB_API int lrocksdb_options_optimize_level_style_compaction(lua_State *L);
-LUALIB_API int lrocksdb_options_set_create_if_missing(lua_State *L);
+LUALIB_API int lrocksdb_options_set(lua_State *L);
+LUALIB_API int lrocksdb_options_get(lua_State *L);
+LUALIB_API int lrocksdb_options_destroy(lua_State *L);
+
+/* read options */
+LUALIB_API int lrocksdb_readoptions_create(lua_State *L);
+LUALIB_API int lrocksdb_readoptions_destroy(lua_State *L);
+
+/* write options */
+LUALIB_API int lrocksdb_writeoptions_create(lua_State *L);
+LUALIB_API int lrocksdb_writeoptions_destroy(lua_State *L);
+
+/* flush options */
+LUALIB_API int lrocksdb_flushoptions_create(lua_State *L);
+LUALIB_API int lrocksdb_flushoptions_destroy(lua_State *L);
+LUALIB_API int lrocksdb_flushoptions_set_wait(lua_State *L);
 
 static const struct luaL_Reg  options_reg[] = {
-  { "increase_parallelism",  lrocksdb_options_increase_parallelism },
-  { "optimize_level_style_compaction", lrocksdb_options_optimize_level_style_compaction },
-  { "set_create_if_missing", lrocksdb_options_set_create_if_missing },
+  { "set", lrocksdb_options_set },
+  { "get", lrocksdb_options_get },
+  { "destroy", lrocksdb_options_destroy },
   { NULL, NULL }
 };
 

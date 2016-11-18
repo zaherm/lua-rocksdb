@@ -5,15 +5,16 @@ LUALIB_API int lrockdb_reg(lua_State *L) {
 }
 
 LUALIB_API int lrockdb_open(lua_State *L) {
-  lrocksdb_options_t *o = lrockdb_options_get(L, 1);
+  lrocksdb_options_t *o = lrockdb_get_options(L, 1);
   const char *path = luaL_checkstring(L, 2);
   char *err = NULL;
   rocksdb_t *db = rocksdb_open(o->options, path, &err);
- 
+
   if(err) {
-   luaL_error(L, err);
+    luaL_error(L, err);
     return 0;
   }
+
   lrocksdb_t *d = (lrocksdb_t *) lua_newuserdata(L, sizeof(lrocksdb_t));
   d->db = db;
   d->options = o;
@@ -42,7 +43,7 @@ LUALIB_API int luaopen_rocksdb(lua_State *L) {
     lrocksdb_regs[i].func(L);
   }
   luaL_setfuncs(L, mod_reg, 0);
-  
+
   lua_pushliteral(L, LROCKSDB_VERSION);
   lua_setfield(L, -2, "_VERSION");
   lua_pushliteral(L, LROCKSDB_COPYRIGHT);
