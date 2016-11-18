@@ -19,4 +19,5 @@ Usage
   local readoptions = rocksdb.readoptions()
   db:put(writeoptions, "key", "value")
   print(db:get(readoptions, "key"))
+  db:close()
 ```
