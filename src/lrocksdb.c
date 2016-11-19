@@ -131,6 +131,17 @@ LUALIB_API int lrocksdb_close(lua_State *L) {
   return 1;
 }
 
+LUALIB_API int lrocksdb_create_iterator(lua_State *L) {
+  lrocksdb_t *d = lrocksdb_get_db(L, 1);
+  lrocksdb_readoptions_t *ro = lrocksdb_get_readoptions(L, 2);
+  lrocksdb_iterator_t *i = (lrocksdb_iterator_t *)
+                              lua_newuserdata(L, sizeof(lrocksdb_iterator_t));
+  i->iter = rocksdb_create_iterator(d->db, ro->readoptions);
+  lrocksdb_setmeta(L, "iterator");
+  return 1;
+}
+
+
 LUALIB_API int luaopen_rocksdb(lua_State *L) {
   lua_newtable(L);
 

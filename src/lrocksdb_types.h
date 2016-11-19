@@ -33,4 +33,8 @@ typedef struct {
   rocksdb_writebatch_t *writebatch;
 } lrocksdb_writebatch_t;
 
+typedef struct {
+  rocksdb_iterator_t *iter;
+} lrocksdb_iterator_t;
+
 #endif

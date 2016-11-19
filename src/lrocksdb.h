@@ -13,6 +13,7 @@
 #include "lrocksdb_options.h"
 #include "lrocksdb_backup_engine.h"
 #include "lrocksdb_writebatch.h"
+#include "lrocksdb_iter.h"
 
 #define LROCKSDB_VERSION "lua-rocksdb 0.0.1"
 #define LROCKSDB_COPYRIGHT "Copyright (C) 2016, Zaher Marzuq"
@@ -24,6 +25,7 @@ static const struct luaL_Reg  lrocksdb_db_reg[] = {
   { "close", lrocksdb_close },
   { "delete", lrocksdb_delete },
   { "write", lrocksdb_write },
+  { "iterator", lrocksdb_create_iterator },
   { NULL, NULL }
 };
 
@@ -35,6 +37,7 @@ static const struct luaL_Reg  lrocksdb_regs[] = {
   { "backup_engine", lrocksdb_backup_engine_reg },
   { "writebatch", lrocksdb_writebatch_reg },
   { "restoreoptions", lrocksdb_restoreoptions_reg },
+  { "iterator", lrocksdb_iter_reg },
   { NULL, NULL }
 };
 

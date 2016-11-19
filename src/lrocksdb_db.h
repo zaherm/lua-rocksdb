@@ -19,6 +19,6 @@ LUALIB_API int lrocksdb_close(lua_State *L);
 LUALIB_API int lrocksdb_open_for_read_only(lua_State *L);
 LUALIB_API int lrocksdb_delete(lua_State *L);
 LUALIB_API int lrocksdb_write(lua_State *L);
-
+LUALIB_API int lrocksdb_create_iterator(lua_State *L);
 
 #endif
