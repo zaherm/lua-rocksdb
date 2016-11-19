@@ -39,6 +39,13 @@ rocksdb.writeoptions()
 =====
 Create a writeoptions object.
 
+rocksdb.restoreoptions(table)
+=====
+Create a restoreoptions object.
+
+  * **table** options map, supported:
+    * **keep_log_files** - number of log files to keep
+
 rocksdb.open(options, db_path)
 =====
   * **options** - object (created using rocksdb.options())
