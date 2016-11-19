@@ -1,6 +1,6 @@
 #ifndef LROCKSDB_TYPES_H
 #define LROCKSDB_TYPES_H
-#include "lrocksdb.h"
+#include "rocksdb/c.h"
 
 typedef  struct {
  rocksdb_options_t *options;
@@ -21,5 +21,8 @@ typedef struct {
   unsigned char read_only;
 } lrocksdb_t;
 
+typedef struct {
+  rocksdb_backup_engine_t *backup_engine;
+} lrocksdb_backup_engine_t;
 
 #endif

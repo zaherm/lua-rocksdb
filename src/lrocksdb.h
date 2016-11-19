@@ -9,21 +9,37 @@
 #include "rocksdb/c.h"
 #include "lrocksdb_helpers.h"
 #include "lrocksdb_types.h"
+#include "lrocksdb_db.h"
 #include "lrocksdb_options.h"
+#include "lrocksdb_backup_engine.h"
 
 #define LROCKSDB_VERSION "lua-rocksdb 0.0.1"
 #define LROCKSDB_COPYRIGHT "Copyright (C) 2016, Zaher Marzuq"
 #define LROCKSDB_DESCRIPTION "RocksDB binding for Lua"
 
-lrocksdb_t *lrocksdb_get_db(lua_State *L, int index);
-LUALIB_API int lrocksdb_put(lua_State *L);
-LUALIB_API int lrocksdb_get(lua_State *L);
-LUALIB_API int lrocksdb_close(lua_State *L);
-
 static const struct luaL_Reg  lrocksdb_db_reg[] = {
   { "put", lrocksdb_put },
   { "get", lrocksdb_get },
   { "close", lrocksdb_close },
+  { NULL, NULL }
+};
+
+static const struct luaL_Reg  lrocksdb_regs[] = {
+  { "db", lrocksdb_reg },
+  { "options",  lrocksdb_options_reg },
+  { "writeoptions",  lrocksdb_writeoptions_reg },
+  { "readoptions",  lrocksdb_readoptions_reg },
+  { "backup_engine", lrocksdb_backup_engine_reg },
+  { NULL, NULL }
+};
+
+static const struct luaL_Reg lrocksdb_funcs[] = {
+  { "open", lrocksdb_open },
+  { "open_for_read_only", lrocksdb_open_for_read_only },
+  { "options", lrocksdb_options_create },
+  { "writeoptions", lrocksdb_writeoptions_create },
+  { "readoptions", lrocksdb_readoptions_create },
+  { "backup_engine", lrocksdb_backup_engine_open },
   { NULL, NULL }
 };
 

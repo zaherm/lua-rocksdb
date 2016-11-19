@@ -1,6 +1,9 @@
 #ifndef LROCKSDB_OPTIONS_H
 #define LROCKSDB_OPTIONS_H
-#include "lrocksdb.h"
+#include <string.h>
+#include "lauxlib.h"
+#include "lrocksdb_types.h"
+#include "lrocksdb_helpers.h"
 
 lrocksdb_options_t *lrocksdb_get_options(lua_State *L, int index);
 LUALIB_API int lrocksdb_options_reg(lua_State *L);
@@ -45,3 +48,4 @@ static const struct luaL_Reg readoptions_reg[] = {
 };
 
 #endif
+

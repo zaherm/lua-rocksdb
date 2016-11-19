@@ -96,23 +96,6 @@ LUALIB_API int lrocksdb_close(lua_State *L) {
   d->open = 0;
   return 1;
 }
-static const struct luaL_Reg  lrocksdb_regs[] = {
-  { "db", lrocksdb_reg },
-  { "options",  lrocksdb_options_reg },
-  { "writeoptions",  lrocksdb_writeoptions_reg },
-  { "readoptions",  lrocksdb_readoptions_reg },
-  { NULL, NULL }
-};
-
-static const struct luaL_Reg lrocksdb_funcs[] = {
-  { "open", lrocksdb_open },
-  { "open_for_read_only", lrocksdb_open_for_read_only },
-  { "options", lrocksdb_options_create },
-  { "writeoptions", lrocksdb_writeoptions_create },
-  { "readoptions", lrocksdb_readoptions_create },
-  { NULL, NULL }
-};
-
 
 LUALIB_API int luaopen_rocksdb(lua_State *L) {
   lua_newtable(L);

@@ -1,4 +1,5 @@
 #include "lrocksdb_options.h"
+
 LUALIB_API int lrocksdb_options_reg(lua_State *L) {
   lrocksdb_createmeta(L, "options", options_reg);
   return 1;
