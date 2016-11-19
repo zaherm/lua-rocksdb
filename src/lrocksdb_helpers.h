@@ -7,4 +7,6 @@ LUALIB_API void luaL_setfuncs (lua_State *L, const luaL_Reg *l, int nup);
 LUALIB_API int lrocksdb_createmeta(lua_State *L, const char *name, const luaL_Reg *methods);
 LUALIB_API void lrocksdb_setmeta(lua_State *L, const char *name);
 void lrocksdb_assert(lua_State *L, int cond, const char *msg);
+
+
 #endif

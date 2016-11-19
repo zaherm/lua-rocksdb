@@ -18,6 +18,7 @@ typedef struct {
   rocksdb_t *db;
   lrocksdb_options_t *options;
   unsigned char open;
+  unsigned char read_only;
 } lrocksdb_t;
 
 

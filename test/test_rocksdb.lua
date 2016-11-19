@@ -42,8 +42,25 @@ db:close()
 print("closed")
 local ok, res = pcall(db.get, db, readoptions, "testkey")
 assert(ok == false)
+collectgarbage()
+
+local read_only_db = rocksdb.open_for_read_only(options, "/tmp/rocksdb.test", false)
+assert(read_only_db)
+print("start.read_only_db: get")
+for i = 0, 1000 do
+  key = format("lrocks_db_key:%d", i)
+  expected_value = format("lrocks_db_value:%d", i)
+  value = read_only_db:get(readoptions, key)
+  assert(value == expected_value)
+end
+print("done.read_only_db: get")
+
+ok, res = pcall(read_only_db.put, read_only_db, writeoptions, "test", "test")
+assert(ok == false)
+
+read_only_db:close()
+
 readoptions:destroy()
 writeoptions:destroy()
 options:destroy()
-collectgarbage()
 

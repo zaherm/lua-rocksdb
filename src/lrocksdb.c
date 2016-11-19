@@ -32,9 +32,31 @@ LUALIB_API int lrocksdb_open(lua_State *L) {
   return 1;
 }
 
+LUALIB_API int lrocksdb_open_for_read_only(lua_State *L) {
+  lrocksdb_options_t *o = lrocksdb_get_options(L, 1);
+  const char *name = luaL_checkstring(L, 2);
+  unsigned char error_if_log_file_exist = lua_toboolean(L, 3);
+  char *err = NULL;
+  rocksdb_t *db = rocksdb_open_for_read_only(o->options, name,
+                                             error_if_log_file_exist, &err);
+
+  if(err) {
+    luaL_error(L, err);
+    free(err);
+    return 0;
+  }
+
+  lrocksdb_t *d = (lrocksdb_t *) lua_newuserdata(L, sizeof(lrocksdb_t));
+  d->db = db;
+  d->options = o;
+  d->open = 1;
+  d->read_only = 1;
+  lrocksdb_setmeta(L, "db");
+  return 1;
+}
+
 LUALIB_API int lrocksdb_put(lua_State *L) {
   lrocksdb_t *d = lrocksdb_get_db(L, 1);
-
   lrocksdb_writeoptions_t *wo = lrocksdb_get_writeoptions(L, 2);
   size_t key_len, value_len;
   const char *key, *value;
@@ -84,6 +106,7 @@ static const struct luaL_Reg  lrocksdb_regs[] = {
 
 static const struct luaL_Reg lrocksdb_funcs[] = {
   { "open", lrocksdb_open },
+  { "open_for_read_only", lrocksdb_open_for_read_only },
   { "options", lrocksdb_options_create },
   { "writeoptions", lrocksdb_writeoptions_create },
   { "readoptions", lrocksdb_readoptions_create },
