@@ -83,13 +83,32 @@ LUALIB_API int lrocksdb_get(lua_State *L) {
   if(err) {
     luaL_error(L, err);
   }
-  else {
+  if(value != NULL) {
     lua_pushlstring(L, value, value_len);
     free(value);
+  }
+  else {
+    lua_pushnil(L);
   }
   return 1;
 }
 
+LUALIB_API int lrocksdb_delete(lua_State *L) {
+  lrocksdb_t *d = lrocksdb_get_db(L, 1);
+  lrocksdb_writeoptions_t *wo = lrocksdb_get_writeoptions(L, 2);
+  size_t key_len;
+  const char *key;
+  char *err = NULL;
+
+  key = luaL_checklstring(L, 3, &key_len);
+  rocksdb_delete(d->db, wo->writeoptions, key, key_len, &err);
+  if(err) {
+    luaL_error(L, err);
+    free(err);
+  }
+  lua_pushnil(L);
+  return 1;
+}
 LUALIB_API int lrocksdb_close(lua_State *L) {
   lrocksdb_t *d = lrocksdb_get_db(L, 1);
   rocksdb_close(d->db);

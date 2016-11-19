@@ -21,6 +21,7 @@ static const struct luaL_Reg  lrocksdb_db_reg[] = {
   { "put", lrocksdb_put },
   { "get", lrocksdb_get },
   { "close", lrocksdb_close },
+  { "delete", lrocksdb_delete },
   { NULL, NULL }
 };
 

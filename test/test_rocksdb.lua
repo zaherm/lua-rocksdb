@@ -38,6 +38,13 @@ for i = 0, 1000 do
   assert(value == expected_value)
 end
 print("done: get")
+print("delete: start", key)
+key = "lrocks_db_key:delete_me"
+db:put(writeoptions, key, "delete")
+db:delete(writeoptions, key)
+value = db:get(readoptions, key)
+print("delete: end", key, type(value), value, "-")
+assert(value == nil)
 db:close()
 print("closed")
 local ok, res = pcall(db.get, db, readoptions, "testkey")
