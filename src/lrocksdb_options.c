@@ -14,13 +14,13 @@ LUALIB_API int lrocksdb_readoptions_reg(lua_State *L) {
   return 1;
 }
 
-
 void lrocksdb_options_set_from_table(lua_State *L, int index, rocksdb_options_t *opt) {
-  lua_pushvalue(L, index);
-  lua_pushnil(L);
   int opt_int;
   uint64_t opt_uint64;
   unsigned char opt_bool;
+
+  lua_pushvalue(L, index);
+  lua_pushnil(L);
   while (lua_next(L, -2))
   {
     lua_pushvalue(L, -2);
