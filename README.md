@@ -108,10 +108,21 @@ Returns info of a backup at *index* (**note** indices start at 1, to keep with L
   * returns **table**
 
 _keys_
-  * **id** backup id
-  * **timestamp**
-  * **size**
-  * **number_files**
+
+* **id**
+* **timestamp**
+* **size**
+* **number_files**
+
+
+backup_engine:restore_db_from_latest_backup(db_path, wal_dir, restoreoptions)
+=====
+Restores DB from the latest backup.
+
+* **db_path** (string)
+* **wal_dir** (string)
+* **restoreoptions** (created using rocksdb.restoreoptions())
+Returns an error on failure
 
 backup_engine:close()
 =====
