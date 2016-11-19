@@ -25,4 +25,8 @@ typedef struct {
   rocksdb_backup_engine_t *backup_engine;
 } lrocksdb_backup_engine_t;
 
+typedef struct {
+  rocksdb_writebatch_t *writebatch;
+} lrocksdb_writebatch_t;
+
 #endif

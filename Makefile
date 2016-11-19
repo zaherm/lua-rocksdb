@@ -32,7 +32,8 @@ T= $(MYLIB).so
 OBJS= src/l$(MYLIB).o \
 			src/l$(MYLIB)_helpers.o \
 			src/l$(MYLIB)_options.o \
-			src/l$(MYLIB)_backup_engine.o
+			src/l$(MYLIB)_backup_engine.o \
+			src/l$(MYLIB)_writebatch.o \
 
 all: $T
 

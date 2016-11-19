@@ -109,6 +109,21 @@ LUALIB_API int lrocksdb_delete(lua_State *L) {
   lua_pushnil(L);
   return 1;
 }
+
+LUALIB_API int lrocksdb_write(lua_State *L) {
+  lrocksdb_t *d = lrocksdb_get_db(L, 1);
+  lrocksdb_writeoptions_t *wo = lrocksdb_get_writeoptions(L, 2);
+  lrocksdb_writebatch_t *rb = lrocksdb_get_writebatch(L, 3);
+  char *err = NULL;
+  rocksdb_write(d->db, wo->writeoptions, rb->writebatch, &err);
+  if(err) {
+    luaL_error(L, err);
+    free(err);
+  }
+  lua_pushboolean(L, 1);
+  return 1;
+}
+
 LUALIB_API int lrocksdb_close(lua_State *L) {
   lrocksdb_t *d = lrocksdb_get_db(L, 1);
   rocksdb_close(d->db);
