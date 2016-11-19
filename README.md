@@ -74,6 +74,10 @@ Executes _write_ operation on a batch.
   * **writeoptions** - created using rocksdb.writeoptions()
   * **writebatch** - created using rocksdb.writebatch()
 
+rocksdb:iterator(readoptions)
+=====
+Returns an iterator object.
+
 
 rocksdb:close()
 =====
@@ -148,3 +152,32 @@ writebatch:destroy()
 =====
 Frees the writebatch instance.
 
+
+iterator:valid()
+=====
+Returns _true_ if the iterator is valid, _false_ otherwise.
+
+iterator:seek_to_first(), iterator:seek_to_last()
+=====
+Seek to first/last iterm.
+
+
+iterator:seek(key)
+=====
+Seek specific _key_.
+
+iterator:next(), iterator:prev()
+=====
+Move to next/prev item.
+
+iterator:key(), iterator:value()
+=====
+Returns _string_ key/value.
+
+iterator:get_error()
+=====
+Returns _string_ error message of the iterator.
+
+iterator:destroy()
+=====
+Frees the iterator instance.
