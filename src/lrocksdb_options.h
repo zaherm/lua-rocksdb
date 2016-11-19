@@ -29,6 +29,7 @@ LUALIB_API int lrocksdb_flushoptions_destroy(lua_State *L);
 LUALIB_API int lrocksdb_flushoptions_set_wait(lua_State *L);
 
 /* restore options */
+lrocksdb_restoreoptions_t *lrocksdb_get_restoreoptions(lua_State *L, int index);
 LUALIB_API int lrocksdb_restoreoptions_reg(lua_State *L);
 LUALIB_API int lrocksdb_restoreoptions_create(lua_State *L);
 LUALIB_API int lrocksdb_restoreoptions_destroy(lua_State *L);
