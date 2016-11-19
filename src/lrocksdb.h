@@ -10,11 +10,12 @@
 #include "lrocksdb_helpers.h"
 #include "lrocksdb_types.h"
 #include "lrocksdb_options.h"
+
 #define LROCKSDB_VERSION "lua-rocksdb 0.0.1"
 #define LROCKSDB_COPYRIGHT "Copyright (C) 2016, Zaher Marzuq"
 #define LROCKSDB_DESCRIPTION "RocksDB binding for Lua"
 
-
+lrocksdb_t *lrocksdb_get_db(lua_State *L, int index);
 LUALIB_API int lrocksdb_put(lua_State *L);
 LUALIB_API int lrocksdb_get(lua_State *L);
 LUALIB_API int lrocksdb_close(lua_State *L);

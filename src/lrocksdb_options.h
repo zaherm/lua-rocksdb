@@ -1,14 +1,6 @@
 #ifndef LROCKSDB_OPTIONS_H
 #define LROCKSDB_OPTIONS_H
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <stdint.h>
-#include "lauxlib.h"
-
-#include "rocksdb/c.h"
-#include "lrocksdb_types.h"
-#include "lrocksdb_helpers.h"
+#include "lrocksdb.h"
 
 lrocksdb_options_t *lrocksdb_get_options(lua_State *L, int index);
 LUALIB_API int lrocksdb_options_reg(lua_State *L);
