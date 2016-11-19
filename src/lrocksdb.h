@@ -34,6 +34,7 @@ static const struct luaL_Reg  lrocksdb_regs[] = {
   { "readoptions",  lrocksdb_readoptions_reg },
   { "backup_engine", lrocksdb_backup_engine_reg },
   { "writebatch", lrocksdb_writebatch_reg },
+  { "restoreoptions", lrocksdb_restoreoptions_reg },
   { NULL, NULL }
 };
 
@@ -45,6 +46,7 @@ static const struct luaL_Reg lrocksdb_funcs[] = {
   { "readoptions", lrocksdb_readoptions_create },
   { "backup_engine", lrocksdb_backup_engine_open },
   { "writebatch", lrocksdb_writebatch_create },
+  { "restoreoptions", lrocksdb_restoreoptions_create },
   { NULL, NULL }
 };
 

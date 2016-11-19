@@ -14,6 +14,10 @@ typedef  struct {
  rocksdb_readoptions_t *readoptions;
 } lrocksdb_readoptions_t;
 
+typedef  struct {
+ rocksdb_restore_options_t *restoreoptions;
+} lrocksdb_restoreoptions_t;
+
 typedef struct {
   rocksdb_t *db;
   lrocksdb_options_t *options;

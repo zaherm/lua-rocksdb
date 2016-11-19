@@ -15,6 +15,11 @@ LUALIB_API int lrocksdb_readoptions_reg(lua_State *L) {
   return 1;
 }
 
+LUALIB_API int lrocksdb_restoreoptions_reg(lua_State *L) {
+  lrocksdb_createmeta(L, "restoreoptions", restoreoptions_reg);
+  return 1;
+}
+
 void lrocksdb_options_set_from_table(lua_State *L, int index, rocksdb_options_t *opt) {
   int opt_int;
   uint64_t opt_uint64;
@@ -336,4 +341,51 @@ LUALIB_API int lrocksdb_readoptions_destroy(lua_State *L) {
   }
   return 1;
 }
+
+
+/* restore options */
+lrocksdb_restoreoptions_t *lrocksdb_get_restoreoptions(lua_State *L, int index) {
+  lrocksdb_restoreoptions_t *o = (lrocksdb_restoreoptions_t *) luaL_checkudata(L, index, "restoreoptions");
+  luaL_argcheck(L, o != NULL && o->restoreoptions != NULL, index, "restoreoptions expected");
+  return o;
+}
+
+void lrocksdb_restoreoptions_set_from_table(lua_State *L, int index, rocksdb_restore_options_t *opt) {
+  lua_pushvalue(L, index);
+  lua_pushnil(L);
+  while (lua_next(L, -2))
+  {
+    lua_pushvalue(L, -2);
+    const char *key = lua_tostring(L, -1);
+    int value = luaL_checkint(L, -2);
+    if(strcmp(key, "keep_log_files") == 0) {
+      rocksdb_restore_options_set_keep_log_files(opt, value);
+    }
+    lua_pop(L, 2);
+  }
+  lua_pop(L, 1);
+}
+
+LUALIB_API int lrocksdb_restoreoptions_create(lua_State *L) {
+  lrocksdb_restoreoptions_t *o = (lrocksdb_restoreoptions_t*) lua_newuserdata(L,
+                                          sizeof(lrocksdb_restoreoptions_t));
+  o->restoreoptions = rocksdb_restore_options_create();
+  lrocksdb_setmeta(L, "restoreoptions");
+  if(lua_istable(L, 1)) {
+    lrocksdb_restoreoptions_set_from_table(L, 1, o->restoreoptions);
+  }
+  return 1;
+}
+
+LUALIB_API int lrocksdb_restoreoptions_destroy(lua_State *L) {
+  lrocksdb_restoreoptions_t *o = lrocksdb_get_restoreoptions(L, 1);
+  if(o != NULL && o->restoreoptions != NULL) {
+    rocksdb_restore_options_destroy(o->restoreoptions);
+    o->restoreoptions = NULL;
+    o = NULL;
+  }
+  return 1;
+}
+
+
 

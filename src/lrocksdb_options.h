@@ -28,6 +28,11 @@ LUALIB_API int lrocksdb_flushoptions_create(lua_State *L);
 LUALIB_API int lrocksdb_flushoptions_destroy(lua_State *L);
 LUALIB_API int lrocksdb_flushoptions_set_wait(lua_State *L);
 
+/* restore options */
+LUALIB_API int lrocksdb_restoreoptions_reg(lua_State *L);
+LUALIB_API int lrocksdb_restoreoptions_create(lua_State *L);
+LUALIB_API int lrocksdb_restoreoptions_destroy(lua_State *L);
+
 static const struct luaL_Reg options_reg[] = {
   { "set", lrocksdb_options_set },
   { "destroy", lrocksdb_options_destroy },
@@ -44,6 +49,12 @@ static const struct luaL_Reg writeoptions_reg[] = {
 static const struct luaL_Reg readoptions_reg[] = {
   { "__gc", lrocksdb_readoptions_destroy },
   { "destroy", lrocksdb_readoptions_destroy },
+  { NULL, NULL }
+};
+
+static const struct luaL_Reg restoreoptions_reg[] = {
+  { "__gc", lrocksdb_restoreoptions_destroy },
+  { "destroy", lrocksdb_restoreoptions_destroy },
   { NULL, NULL }
 };
 
