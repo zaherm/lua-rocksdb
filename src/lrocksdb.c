@@ -7,7 +7,7 @@ LUALIB_API int lrocksdb_reg(lua_State *L) {
 
 lrocksdb_t *lrocksdb_get_db(lua_State *L, int index) {
   lrocksdb_t *o = (lrocksdb_t *) luaL_checkudata(L, index, "db");
-  luaL_argcheck(L, o != NULL, index, "db expected");
+  luaL_argcheck(L, o != NULL && o->db != NULL, index, "db expected");
   return o;
 }
 

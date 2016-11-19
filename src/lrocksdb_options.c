@@ -227,7 +227,7 @@ void lrocksdb_options_set_from_table(lua_State *L, int index, rocksdb_options_t 
 
 lrocksdb_options_t *lrocksdb_get_options(lua_State *L, int index) {
   lrocksdb_options_t *o = (lrocksdb_options_t *) luaL_checkudata(L, index, "options");
-  luaL_argcheck(L, o != NULL, index, "options expected");
+  luaL_argcheck(L, o != NULL && o->options != NULL, index, "options expected");
   return o;
 }
 
@@ -262,7 +262,7 @@ LUALIB_API int lrocksdb_options_destroy(lua_State *L) {
 /* write options */
 lrocksdb_writeoptions_t *lrocksdb_get_writeoptions(lua_State *L, int index) {
   lrocksdb_writeoptions_t *o = (lrocksdb_writeoptions_t *) luaL_checkudata(L, index, "writeoptions");
-  luaL_argcheck(L, o != NULL, index, "writeoptions expected");
+  luaL_argcheck(L, o != NULL && o->writeoptions != NULL, index, "writeoptions expected");
   return o;
 }
 
@@ -300,7 +300,7 @@ LUALIB_API int lrocksdb_writeoptions_destroy(lua_State *L) {
 /* read options */
 lrocksdb_readoptions_t *lrocksdb_get_readoptions(lua_State *L, int index) {
   lrocksdb_readoptions_t *o = (lrocksdb_readoptions_t *) luaL_checkudata(L, index, "readoptions");
-  luaL_argcheck(L, o != NULL, index, "readoptions expected");
+  luaL_argcheck(L, o != NULL && o->readoptions != NULL, index, "readoptions expected");
   return o;
 }
 
