@@ -55,6 +55,18 @@ LUALIB_API int lrocksdb_backup_engine_purge_old_backups(lua_State *L) {
 }
 
 LUALIB_API int lrocksdb_backup_engine_restore_db_from_latest_backup(lua_State *L) {
+  lrocksdb_backup_engine_t *be = lrocksdb_get_backup_engine(L, 1);
+  const char* db_dir = luaL_checkstring(L, 2);
+  const char* wal_dir = luaL_checkstring(L, 3);
+  lrocksdb_restoreoptions_t *ro = lrocksdb_get_restoreoptions(L, 4);
+  char *err = NULL;
+  rocksdb_backup_engine_restore_db_from_latest_backup(be->backup_engine, db_dir,
+                                              wal_dir, ro->restoreoptions, &err);
+  if(err != NULL) {
+    luaL_error(L, err);
+    free(err);
+    return 0;
+  }
   return 1;
 }
 

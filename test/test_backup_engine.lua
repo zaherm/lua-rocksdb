@@ -20,6 +20,12 @@ local info = backup_engine:get_backup_info(count)
 for k,v in pairs(info) do
   print(k..": "..tostring(v))
 end
+
+local restoreoptions = rocksdb.restoreoptions({
+  keep_log_files = 1
+})
+backup_engine:restore_db_from_latest_backup(db_path, db_path, restoreoptions);
+
 backup_engine:close()
 print("***** done: backup_engine test *****")
 
