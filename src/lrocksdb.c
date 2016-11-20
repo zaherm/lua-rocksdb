@@ -68,6 +68,7 @@ LUALIB_API int lrocksdb_put(lua_State *L) {
   if(err) {
     luaL_error(L, err);
     free(err);
+    return 0;
   }
   return 1;
 }
@@ -82,6 +83,8 @@ LUALIB_API int lrocksdb_get(lua_State *L) {
   char *value = rocksdb_get(d->db, ro->readoptions, key, key_len, &value_len, &err);
   if(err) {
     luaL_error(L, err);
+    free(err);
+    return 0;
   }
   if(value != NULL) {
     lua_pushlstring(L, value, value_len);
@@ -105,6 +108,7 @@ LUALIB_API int lrocksdb_delete(lua_State *L) {
   if(err) {
     luaL_error(L, err);
     free(err);
+    return 0;
   }
   lua_pushnil(L);
   return 1;
@@ -119,6 +123,7 @@ LUALIB_API int lrocksdb_write(lua_State *L) {
   if(err) {
     luaL_error(L, err);
     free(err);
+    return 0;
   }
   lua_pushboolean(L, 1);
   return 1;
