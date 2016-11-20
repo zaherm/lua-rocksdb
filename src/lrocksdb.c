@@ -146,6 +146,19 @@ LUALIB_API int lrocksdb_create_iterator(lua_State *L) {
   return 1;
 }
 
+LUALIB_API int lrocksdb_property_value(lua_State *L) {
+  lrocksdb_t *d = lrocksdb_get_db(L, 1);
+  const char* propname = luaL_checkstring(L, 2);
+  char *propvalue = rocksdb_property_value(d->db, propname);
+  if(propvalue != NULL) {
+    lua_pushstring(L, propvalue);
+    free(propvalue);
+  }
+  else {
+    lua_pushnil(L);
+  }
+  return 1;
+}
 
 LUALIB_API int luaopen_rocksdb(lua_State *L) {
   lua_newtable(L);

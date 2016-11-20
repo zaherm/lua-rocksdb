@@ -26,6 +26,7 @@ static const struct luaL_Reg  lrocksdb_db_reg[] = {
   { "delete", lrocksdb_delete },
   { "write", lrocksdb_write },
   { "iterator", lrocksdb_create_iterator },
+  { "property_value", lrocksdb_property_value },
   { NULL, NULL }
 };
 
